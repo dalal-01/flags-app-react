@@ -2,7 +2,7 @@ import React from 'react'
 
 function BorderCountries() {
   return (
- <div className="border-countries py-5">
+ <div className="border-countries pt-5 pb-4">
   <h5 className="d-block d-sm-inline-block pe-2 mb-3">
     border countries:
   </h5>

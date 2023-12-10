@@ -1,0 +1,5 @@
+button{
+    background-color: var(--bg-primary);
+    color: var(--bs-body-color);
+    padding: 0px;
+}

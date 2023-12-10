@@ -1,4 +1,6 @@
 import React from "react";
+import { MdStar } from "react-icons/md";
+
 function Card({ countryInfo }) {
   return (
     <div className="col">
@@ -27,6 +29,9 @@ function Card({ countryInfo }) {
             capital: <span>{countryInfo.capital}</span>
           </p>
         </div>
+        <MdStar className="ms-auto "/>
+
+
       </div>
     </div>
   );

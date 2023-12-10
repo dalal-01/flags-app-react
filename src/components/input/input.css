@@ -1,0 +1,15 @@
+.filter-by-search svg {
+  color: var(--form-control-color);
+  font-size: 1.6rem;
+}
+.form-control {
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+}
+.input input:focus {
+  box-shadow: none;
+  background-color: var(--bg-primary);
+}
+.form-control::placeholder {
+  color: var(--form-control-color);
+}

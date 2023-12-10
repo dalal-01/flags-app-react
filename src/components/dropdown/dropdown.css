@@ -1,0 +1,6 @@
+.dropdown-menu.show {
+    background-color: var(--bg-primary);
+  }
+  .dropdown-menu span {
+    cursor: pointer;
+  }

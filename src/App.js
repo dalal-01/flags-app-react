@@ -1,14 +1,13 @@
 import "./App.css";
-import CountryDetails from "./components/country-details-component/CountryDetails.jsx";
-import Home from "./components/home-components/Home.jsx";
 import "bootstrap/dist/css/bootstrap.css";
+import Home from "./components/pages/home-page/Home.jsx";
+import CountryDetails from "./components/pages/country-details-page/CountryDetails.jsx";
 
 function App() {
   return (
-    <div >
-      <Home></Home>
-      {/* <CountryDetails/> */}
-    </div>
+   
+    <Home></Home>
+ 
   );
 }
 
