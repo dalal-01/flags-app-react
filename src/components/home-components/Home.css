@@ -1,0 +1,163 @@
+:root {
+  --large-padding: 75px;
+  --small-padding: 50px;
+  --white: #ffffff;
+  --very-light-gray: #fafafa;
+  --very-dark-black: #111517;
+  --dark-gray: #858585;
+  --bg-primary: var(--white);
+  --bg-secondary: var(--very-light-gray);
+  --bs-body-color: var(--very-dark-black);
+  --bs-body-font-family: "Nunito Sans";
+  --bs-card-border-color: rgb(0, 0, 0, 0.63);
+  --bs-border-color-translucent: rgba(0, 0, 0, 0.155);
+  --bs-btn-active-border-color: transparent;
+  --bs-border-radius: 7px;
+  --form-control-color: var(--dark-gray);
+}
+.dark {
+  --bg-primary: #2b3945;
+  --bs-body-color: var(--white);
+  --bg-secondary: #202c37;
+  --form-control-color: var(--white);
+}
+* {
+  font-family: "Nunito Sans";
+}
+.filter-by-search {
+  width: 28rem;
+  background-color: var(--bg-primary);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.filter-by-search svg {
+  color: var(--form-control-color);
+  font-size: 1.6rem;
+}
+
+.filter-section .form-control {
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+}
+.filter-section .filter-by-search input:focus {
+  box-shadow: none;
+  background-color: var(--bg-primary);
+}
+.form-control::placeholder {
+  color: var(--form-control-color);
+}
+/* form-select */
+.filter-by-list {
+  width: 13rem;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+}
+
+.dropdown-menu.show {
+  background-color: var(--bg-primary);
+}
+.dropdown-menu span {
+  cursor: pointer;
+}
+
+/* country-list */
+.row {
+  --bs-gutter-x: 4rem !important;
+  --bs-gutter-y: 4rem !important;
+}
+.favourites h2 {
+  font-size: 1.3rem;
+}
+.favouriteCountries {
+  overflow-y: scroll;
+  height: calc(100vh - 19rem);
+  max-height: calc(100vh - 19rem);
+}
+.favouriteCountries img {
+  width: 2.8rem;
+  height: 1.5rem;
+  object-fit: cover;
+}
+.favouriteCountries .favouriteCountryName {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.favouriteCountries .close-icon {
+  font-size: 1.2rem;
+  stroke-width: 1;
+  background-color: rgb(238, 230, 230);
+  color: black;
+  padding: 0.3rem;
+  border-radius: 50%;
+  transition: 0.5s;
+}
+.favouriteCountries .close-icon:hover {
+  cursor: pointer;
+  background-color: rgb(155, 152, 152);
+}
+.countries-list {
+  overflow-y: scroll;
+  height: calc(100vh - 15rem);
+  max-height: calc(100vh - 16rem);
+}
+.country-list img {
+  width: 100%;
+  height: 9.5rem;
+  object-fit: cover;
+}
+.card {
+  background-color: var(--bg-primary);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.country-list .card-body {
+  text-transform: capitalize;
+  line-height: 1.5rem;
+}
+.country-list .card-body .country-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.country-list .card-body p {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0px;
+}
+.country-list .card-body span {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+.country-list ion-icon {
+  color: rgb(192, 187, 187);
+  font-size: 1.4rem;
+  margin-left: auto;
+  padding: 0px 10px 10px 0px;
+  display: none;
+}
+.countries-list::-webkit-scrollbar,
+.favouriteCountries::-webkit-scrollbar {
+  width: 0.55rem;
+}
+.countries-list::-webkit-scrollbar-track,
+.favouriteCountries::-webkit-scrollbar-track {
+  background-color: var(--bg-secondary);
+  border-right: 1px solid rgb(216, 208, 208);
+  border-left: 1px solid rgb(216, 208, 208);
+}
+.countries-list::-webkit-scrollbar-thumb,
+.favouriteCountries::-webkit-scrollbar-thumb {
+  background-color: #d1c9c9;
+  border-radius: 5px;
+}
+
+@media (max-width: 650px) {
+  .country-list ion-icon {
+    display: block;
+  }
+  .favourites {
+    display: none;
+  }
+  .countries-list {
+    overflow-y: initial;
+  }
+}

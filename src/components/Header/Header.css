@@ -1,0 +1,38 @@
+header {
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  background: var(--bg-primary);
+}
+.navbar h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--bs-body-color);
+}
+.dark-mode {
+  background-color: var(--bg-primary);
+  color: var(--bs-body-color);
+}
+.dark-mode svg {
+  font-size: 20px;
+}
+.dark-mode:hover {
+  cursor: pointer;
+}
+.dark-mode span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+body {
+  background-color: var(--bg-secondary);
+}
+
+@media (max-width: 450px) {
+  nav h1 {
+    font-size: 1rem !important;
+  }
+  .dark-mode p {
+    font-size: 13px;
+  }
+  .dark-mode ion-icon {
+    font-size: 1rem;
+  }
+}
