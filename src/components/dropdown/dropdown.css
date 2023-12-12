@@ -4,10 +4,6 @@
   .dropdown-menu span {
     cursor: pointer;
   }
-  .dropdown-item:focus{
-    background-color: var(--bg-primary) !important;
-
-  }
  .dropdown-menu .dropdown-item:hover {
     color:black;
 }
