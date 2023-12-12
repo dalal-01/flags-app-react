@@ -1,19 +1,4 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
 :root {
-  --bs-card-bg:red !important;
-
   --white: #ffffff;
   --very-light-gray: #fafafa;
   --very-dark-black: #111517;
@@ -22,18 +7,14 @@ code {
   --bg-secondary: var(--very-light-gray);
   --bs-body-color: var(--very-dark-black);
   --bs-body-font-family: "Nunito Sans";
-  --bs-card-border-color: rgb(0, 0, 0, 0.63);
-  --bs-border-color-translucent: rgba(0, 0, 0, 0.155);
+  --bs-body-bg:var(--bg-secondary) !important;
   --bs-btn-active-border-color: transparent;
   --bs-border-radius: 7px;
   --form-control-color: var(--dark-gray);
 }
-/* --bs-body-bg */
 .dark {
   --bg-primary: #2b3945;
   --bs-body-color: var(--white);
-  --bg-secondary: #202c37;
   --form-control-color: var(--white);
-  --bs-body-bg :#202c37 ;
-
+  --bs-body-bg: #202c37;
 }

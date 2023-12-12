@@ -1,7 +1,7 @@
 import './favourite-countries.css'
 import { TfiClose } from "react-icons/tfi";
-import icImg from "../../../../assets/img/flags/is.svg";
-import Image from '../../../image/Image.jsx';
+import icImg from "../../../assets/img/flags/is.svg";
+import Image from '../../../components/image/Image.jsx';
 
 
 import React from "react";

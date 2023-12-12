@@ -1,10 +1,10 @@
 import React from "react";
 import "./countries-list.css";
 import Card from "./Card.jsx";
-import germanyImg from "../../../../assets/img/flags/de.svg";
-import usImg from "../../../../assets/img/flags/us.svg";
-import brImg from "../../../../assets/img/flags/br.svg";
-import isImg from "../../../../assets/img/flags/is.svg";
+import germanyImg from "../../../assets/img/flags/de.svg";
+import usImg from "../../../assets/img/flags/us.svg";
+import brImg from "../../../assets/img/flags/br.svg";
+import isImg from "../../../assets/img/flags/is.svg";
 
 function CountriesList() {
   let listOfCountry = [

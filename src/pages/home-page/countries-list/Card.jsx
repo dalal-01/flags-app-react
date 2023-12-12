@@ -1,17 +1,18 @@
 import React from "react";
 import { MdStar } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function Card({ countryInfo }) {
   return (
     <div className="col">
       <div draggable="true" className="card border-0 country">
-        <a href="#" className="card border-0">
+        <Link to="/country-details" className="card border-0">
           <img
             src={countryInfo.img}
             alt={`${countryInfo.name} flag`}
             className="card-img-top"
           />
-        </a>
+        </Link>
         <div className="card-body p-4">
           <div
             className="country-name text-truncate pb-3"
@@ -29,9 +30,7 @@ function Card({ countryInfo }) {
             capital: <span>{countryInfo.capital}</span>
           </p>
         </div>
-        <MdStar className="ms-auto "/>
-
-
+        <MdStar className="ms-auto " />
       </div>
     </div>
   );

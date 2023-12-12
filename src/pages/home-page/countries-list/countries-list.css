@@ -1,7 +1,7 @@
 .countries-list {
   overflow-y: scroll;
   height: calc(100vh - 15rem);
-  max-height: calc(100vh - 16rem);
+  max-height: calc(100vh - 15rem);
 }
 .country-list img {
   width: 100%;
@@ -9,7 +9,7 @@
   object-fit: cover;
 }
 .card {
-  background-color: var(--bg-primary);
+  background-color: var(--bg-primary) !important;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
 }
 .country-list .card-body {
@@ -17,8 +17,8 @@
   line-height: 1.5rem;
 }
 .country-list .card-body .country-name {
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 .country-list .card-body p {
   font-weight: 600;
@@ -40,7 +40,7 @@
   width: 0.55rem;
 }
 .countries-list::-webkit-scrollbar-track {
-  background-color: var(--bg-secondary);
+  background-color: var(--bs-body-bg);
   border-right: 1px solid rgb(216, 208, 208);
   border-left: 1px solid rgb(216, 208, 208);
 }

@@ -10,7 +10,7 @@ function Input({ type, placeholder, icon, value, setValue }) {
         type={type}
         placeholder={placeholder}
         aria-label="Search"
-      />
+         />
     </div>
   );
 }

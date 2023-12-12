@@ -1,7 +1,7 @@
 import React from "react";
 import './country-info.css'
-import alFlag from "../../../../assets/img/flags/de.svg";
-import Image from '../../../image/Image.jsx'
+import alFlag from "../../../assets/img/flags/de.svg";
+import Image from '../../../components/image/Image.jsx'
 import CountryInfoDetails from './CountryInfoDetails.jsx'
 import BorderCountry from './BorderCountries.jsx'
 function CountryInfo() {
