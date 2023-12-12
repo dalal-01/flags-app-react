@@ -13,8 +13,10 @@
   --form-control-color: var(--dark-gray);
 }
 .dark {
+
   --bg-primary: #2b3945;
   --bs-body-color: var(--white);
   --form-control-color: var(--white);
   --bs-body-bg: #202c37;
+
 }
