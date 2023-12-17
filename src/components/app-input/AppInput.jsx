@@ -1,5 +1,5 @@
-import "./input.css";
-function Input({ type, placeholder, icon, value, setValue }) {
+import "./app-input.css";
+function AppInput({ type, placeholder, icon, value, setValue }) {
   return (
     <div className="input py-3 d-flex align-items-center ">
       {icon}
@@ -15,4 +15,4 @@ function Input({ type, placeholder, icon, value, setValue }) {
   );
 }
 
-export default Input;
+export default AppInput;

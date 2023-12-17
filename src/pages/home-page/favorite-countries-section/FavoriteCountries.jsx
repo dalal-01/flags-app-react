@@ -1,21 +1,20 @@
-import './favourite-countries.css'
+import './favorite-countries.css'
 import { TfiClose } from "react-icons/tfi";
 import icImg from "../../../assets/img/flags/is.svg";
-import Image from '../../../components/image/Image.jsx';
 
 
 import React from "react";
 
-function FavouriteCountries() {
+function FavoriteCountries() {
   return (
-    <aside className="favourites col-3 pe-1">
+    <aside className="favorites col-3 pe-1">
       <div className="card p-3">
-        <h2 className="fw-bold">Favourites</h2>
-        <div className="favourite-countries ">
+        <h2 className="fw-bold">Favorites</h2>
+        <div className="favorite-countries ">
           <div className="d-flex mb-3 align-items-center">
-            <Image src={icImg} alt=""></Image>
+            <img src={icImg} alt=""/>
             <div
-              className="favourite-country-name  ps-2 text-truncate"
+              className="favorite-country-name  ps-2 text-truncate"
               title="iceland"
             >
               iceland
@@ -30,4 +29,4 @@ function FavouriteCountries() {
   );
 }
 
-export default FavouriteCountries;
+export default FavoriteCountries;

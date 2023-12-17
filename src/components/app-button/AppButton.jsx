@@ -1,6 +1,6 @@
 import React from 'react'
-import './button.css'
-function Button({children}) {
+import './app-button.css'
+function AppButton({children}) {
   return (
     <button className='d-flex gap-2 border-0'>
     {children}
@@ -8,4 +8,4 @@ function Button({children}) {
   )
 }
 
-export default Button
+export default AppButton

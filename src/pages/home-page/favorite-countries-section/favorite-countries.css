@@ -1,10 +1,10 @@
-.favourites h2 {
+.favorites h2 {
   font-size: 1.3rem;
 }
 .card {
   background-color: var(--bg-primary);
 }
-.favourite-countries {
+.favorite-countries {
   height: calc(100vh - 19rem);
   max-height: calc(100vh - 19rem);
   overflow-y: auto;
@@ -15,7 +15,7 @@ img {
   object-fit: cover;
   border-radius: 0.25rem;
 }
-.favourite-country-name {
+.favorite-country-name {
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -32,20 +32,20 @@ img {
   cursor: pointer;
   background-color: rgb(155, 152, 152);
 }
-.favourite-countries::-webkit-scrollbar {
+.favorite-countries::-webkit-scrollbar {
   width: 0.55rem;
 }
-.favourite-countries::-webkit-scrollbar-track {
+.favorite-countries::-webkit-scrollbar-track {
   background-color: var(--bg-secondary);
   border-right: 1px solid rgb(216, 208, 208);
   border-left: 1px solid rgb(216, 208, 208);
 }
-.favourite-countries::-webkit-scrollbar-thumb {
+.favorite-countries::-webkit-scrollbar-thumb {
   background-color: #d1c9c9;
   border-radius: 5px;
 }
 @media (max-width: 650px) {
-  .favourites {
+  .favorites {
     display: none;
   }
 }

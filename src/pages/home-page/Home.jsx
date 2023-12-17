@@ -1,30 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./home.css";
-import Input from "../../components/input/Input.jsx";
+import AppInput from "../../components/app-input/AppInput.jsx";
 import { IoSearchSharp } from "react-icons/io5";
 import Dropdown from "../../components/dropdown/Dropdown.jsx";
-import FavouriteCountries from "./favourite-countries-section/FavouriteCountries.jsx";
+import FavoriteCountries from "./favorite-countries-section/FavoriteCountries.jsx";
 import CountriesList from "./countries-list/CountriesList.jsx";
+import axios from "axios";
 
 function Home() {
   const [countryName, setCountryName] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("Filter by");
+  const [selectedRegion, setSelectedRegion] = useState("No Filter");
+
 
   const options = [
     "No Filter",
     "Africa",
-    "America",
+    "Americas",
     "Asia",
     "Europe",
     "Oceania",
-    "Favourites",
+    "Favorites",
   ];
+  
+  // useEffect(() => {
+  //   if(countryName){
+  //   axios
+  //     .get(`https://restcountries.com/v3.1/name/${countryName}`)
+  //     .then(function (response) {
+  //       setListOfCountriesByName(response.data)
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  //   }
+   
+  // }, [countryName]);
 
   return (
     <>
       <section className="filter-section px-4 px-md-5 py-4 py-md-5 d-flex justify-content-between flex-wrap gap-5">
         <div className="filter-by-search rounded ">
-          <Input
+          <AppInput
             type={"search"}
             placeholder="Search for a country..."
             icon={<IoSearchSharp className="ms-4" />}
@@ -42,8 +58,8 @@ function Home() {
       </section>
       <main className="px-5">
         <div className="row">
-          <FavouriteCountries />
-          <CountriesList />
+          <FavoriteCountries />
+          <CountriesList selectedRegion={selectedRegion} countryName={countryName}/>
         </div>
       </main>
     </>
