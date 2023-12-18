@@ -5,11 +5,12 @@ import { IoSearchSharp } from "react-icons/io5";
 import Dropdown from "../../components/dropdown/Dropdown.jsx";
 import FavoriteCountries from "./favorite-countries-section/FavoriteCountries.jsx";
 import CountriesList from "./countries-list/CountriesList.jsx";
-import axios from "axios";
 
 function Home() {
+  const storedSelectedRegion = localStorage.getItem('selectedRegion') || "No Filter";
+
   const [countryName, setCountryName] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("No Filter");
+  const [selectedRegion, setSelectedRegion] = useState(storedSelectedRegion);
 
 
   const options = [
@@ -23,18 +24,12 @@ function Home() {
   ];
   
   // useEffect(() => {
-  //   if(countryName){
-  //   axios
-  //     .get(`https://restcountries.com/v3.1/name/${countryName}`)
-  //     .then(function (response) {
-  //       setListOfCountriesByName(response.data)
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  //   }
-   
+  //   localStorage.setItem("countryName", countryName);
   // }, [countryName]);
+
+  useEffect(() => {
+    localStorage.setItem("selectedRegion", selectedRegion);
+  }, [selectedRegion]);
 
   return (
     <>
@@ -59,7 +54,10 @@ function Home() {
       <main className="px-5">
         <div className="row">
           <FavoriteCountries />
-          <CountriesList selectedRegion={selectedRegion} countryName={countryName}/>
+          <CountriesList
+            selectedRegion={selectedRegion}
+            countryName={countryName}
+          />
         </div>
       </main>
     </>

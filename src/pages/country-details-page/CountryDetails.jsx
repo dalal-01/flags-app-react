@@ -12,7 +12,7 @@ function CountryDetails() {
         <div className="go-back py-5 my-2">
           <AppButton>
             <Link to="/" className="btn d-inline-flex align-items-center">
-              <IoIosArrowRoundBack className="arrwo-back-icon px-1 " />
+              <IoIosArrowRoundBack className="arrow-back-icon px-1 " />
               <span className="pe-4">Back</span>
             </Link>
           </AppButton>
