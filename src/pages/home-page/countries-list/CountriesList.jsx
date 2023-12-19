@@ -4,12 +4,13 @@ import Card from "./card/Card.jsx";
 import axios from "axios";
 
 function CountriesList({ selectedRegion, countryName }) {
+  console.log("🚀 ~ file: CountriesList.jsx:7 ~ CountriesList ~ countryName:", countryName)
   const [listOfCountries, setListOfCountries] = useState([]);
   const [countriesFiltered, setCountriesFiltered] = useState([]);
   const prevCountryName = useRef("");
   const [errorMessage, setErrorMessage] = useState("");
  
-  const [storedFavoriteCountries, setStoredFavoriteCountries] = useState([]);
+  // const [storedFavoriteCountries, setStoredFavoriteCountries] = useState([]);
 
   useEffect(() => {
     axios
@@ -26,18 +27,18 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
-    const storedData = JSON.parse(localStorage.getItem('storedFavoriteCountries')) || [];
-    setStoredFavoriteCountries(storedData);
+    // const storedData = JSON.parse(localStorage.getItem('storedFavoriteCountries')) || [];
+    // setStoredFavoriteCountries(storedData);
 
     // Listen for changes in local storage
-    const handleStorageChange = (event) => {
-      if (event.key === 'storedFavoriteCountries') {
-        const updatedData = JSON.parse(event.newValue) || [];
-        setStoredFavoriteCountries(updatedData);
-      }
-    };
+    // const handleStorageChange = (event) => {
+    //   if (event.key === 'storedFavoriteCountries') {
+    //     const updatedData = JSON.parse(event.newValue) || [];
+    //     setStoredFavoriteCountries(updatedData);
+    //   }
+    // };
 
-    window.addEventListener('storage', handleStorageChange);
+    // window.addEventListener('storage', handleStorageChange);
     if (prevCountryName.current !== countryName && countryName) {
       axios
         .get(`https://restcountries.com/v3.1/name/${countryName}`)
@@ -45,11 +46,12 @@ function CountriesList({ selectedRegion, countryName }) {
           const countriesResult = response.data.filter((country) => {
             if (selectedRegion === "No Filter") {
               return true;
-            } else if (selectedRegion === "Favorites") {
-              return storedFavoriteCountries.some((storedCountry) => {
-                return storedCountry.name.common === country.name.common;
-              });
-            }
+            } 
+            // else if (selectedRegion === "Favorites") {
+            //   return storedFavoriteCountries.some((storedCountry) => {
+            //     return storedCountry.name.common === country.name.common;
+            //   });
+            // }
             else {
               return country.region === selectedRegion;
             }
@@ -70,11 +72,12 @@ function CountriesList({ selectedRegion, countryName }) {
       const countriesResult = listOfCountries.filter((country) => {
         if (selectedRegion === "No Filter") {
           return true;
-        }else if (selectedRegion === "Favorites") {
-          return storedFavoriteCountries.some((storedCountry) => {
-            return storedCountry.name.common === country.name.common;
-          });
         }
+        // else if (selectedRegion === "Favorites") {
+        //   return storedFavoriteCountries.some((storedCountry) => {
+        //     return storedCountry.name.common === country.name.common;
+        //   });
+        // }
          else {
           return country.region === selectedRegion;
         }
@@ -92,10 +95,10 @@ function CountriesList({ selectedRegion, countryName }) {
 
     return () => {
       ignore = true;
-      window.removeEventListener('storage', handleStorageChange);
+      // window.removeEventListener('storage', handleStorageChange);
 
     };
-  }, [selectedRegion, countryName, listOfCountries,storedFavoriteCountries]);
+  }, [selectedRegion, countryName, listOfCountries]);
 
   return (
     <div className="col-12 col-md-9 countries-list">

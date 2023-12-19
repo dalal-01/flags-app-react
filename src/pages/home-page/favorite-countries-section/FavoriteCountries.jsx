@@ -84,6 +84,7 @@ import "./favorite-countries.css";
 import React, { useState, useEffect } from 'react';
 import { TfiClose } from 'react-icons/tfi'; 
 import { useDrop } from 'react-dnd'; 
+
 const FavoriteCountryList = ({ favoriteCountries, handelDeleteFavorite }) => {
   return (
     <div className="favorite-countries">

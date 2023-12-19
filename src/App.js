@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home-page/Home.jsx";
 import CountryDetails from './pages/country-details-page/CountryDetails.jsx'
-import Header from "../src/components/header/Header.jsx";
+import Header from "../src/components/Header/Header.jsx"
 import AppButton from "../src/components/app-button/AppButton.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 import { IoMoonOutline } from "react-icons/io5";
