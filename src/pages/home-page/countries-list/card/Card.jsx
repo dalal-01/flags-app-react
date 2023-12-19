@@ -25,23 +25,20 @@ function Card({ country,isFavorite}) {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+  const addCountryToFavorite = (country) => {
+    dispatch({ type: 'ADD_COUNTRY', payload: country });
+  };
+  const handleDeleteFavorite = (countryToDelete) => {
+    dispatch({ type: 'DELETE_COUNTRY', payload: countryToDelete });
+  };
 
   const handelDeleteOrAddFavorite = (country) => {
-    // if (index == -1) {
-    //   color = "red";
-    //   storedFavoriteCountries.push(country);
-    //   localStorage.setItem(
-    //     "storedFavoriteCountries",
-    //     JSON.stringify(storedFavoriteCountries)
-    //   );
-    // } else {
-    //   color = "gry";
-    //   storedFavoriteCountries.splice(index, 1);
-    //   localStorage.setItem(
-    //     "storedFavoriteCountries",
-    //     JSON.stringify(storedFavoriteCountries)
-    //   );
-    // }
+    if (isFavorite) {
+      handleDeleteFavorite(country)
+    } else {
+      addCountryToFavorite(country)
+    }
+   
   };
   return (
     <div className="col">
