@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdStar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDrag } from "react-dnd";
+import { FavoriteStateContext, FavoriteDispatchContext } from '../../../../favorite-context/FavoriteProvider.jsx';
 
-function Card({ country }) {
-  const storedFavoriteCountries =
-    JSON.parse(localStorage.getItem("storedFavoriteCountries")) || [];
+function Card({ country,isFavorite}) {
+  const dispatch = useContext(FavoriteDispatchContext);
 
-  const index = storedFavoriteCountries.findIndex(
-    (favorite) => favorite.name.common === country.name.common
-  );
   let color;
-  if (index == -1) {
-    color = "blue";
+  if(isFavorite){
+    console.log(country)
+  }
+  
+  if (isFavorite) {
+    color = "yellow";
   } else {
-    color = "red";
+    color = "black";
   }
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -26,21 +27,21 @@ function Card({ country }) {
   }));
 
   const handelDeleteOrAddFavorite = (country) => {
-    if (index == -1) {
-      color = "red";
-      storedFavoriteCountries.push(country);
-      localStorage.setItem(
-        "storedFavoriteCountries",
-        JSON.stringify(storedFavoriteCountries)
-      );
-    } else {
-      color = "gry";
-      storedFavoriteCountries.splice(index, 1);
-      localStorage.setItem(
-        "storedFavoriteCountries",
-        JSON.stringify(storedFavoriteCountries)
-      );
-    }
+    // if (index == -1) {
+    //   color = "red";
+    //   storedFavoriteCountries.push(country);
+    //   localStorage.setItem(
+    //     "storedFavoriteCountries",
+    //     JSON.stringify(storedFavoriteCountries)
+    //   );
+    // } else {
+    //   color = "gry";
+    //   storedFavoriteCountries.splice(index, 1);
+    //   localStorage.setItem(
+    //     "storedFavoriteCountries",
+    //     JSON.stringify(storedFavoriteCountries)
+    //   );
+    // }
   };
   return (
     <div className="col">

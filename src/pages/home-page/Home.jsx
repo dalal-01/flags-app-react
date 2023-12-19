@@ -5,6 +5,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import Dropdown from "../../components/dropdown/Dropdown.jsx";
 import FavoriteCountries from "./favorite-countries-section/FavoriteCountries.jsx";
 import CountriesList from "./countries-list/CountriesList.jsx";
+import { FavoriteProvider } from "../../favorite-context/FavoriteProvider.jsx";
 
 function Home() {
   const storedSelectedRegion = localStorage.getItem('selectedRegion') || "No Filter";
@@ -53,11 +54,14 @@ function Home() {
       </section>
       <main className="px-5">
         <div className="row">
+        <FavoriteProvider>
           <FavoriteCountries />
+        
           <CountriesList
             selectedRegion={selectedRegion}
             countryName={countryName}
           />
+           </FavoriteProvider>
         </div>
       </main>
     </>

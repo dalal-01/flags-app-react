@@ -1,16 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import "./countries-list.css";
+import {
+  FavoriteStateContext,
+  FavoriteDispatchContext,
+} from "../../../favorite-context/FavoriteProvider.jsx";
+
 import Card from "./card/Card.jsx";
 import axios from "axios";
 
 function CountriesList({ selectedRegion, countryName }) {
-  console.log("🚀 ~ file: CountriesList.jsx:7 ~ CountriesList ~ countryName:", countryName)
   const [listOfCountries, setListOfCountries] = useState([]);
   const [countriesFiltered, setCountriesFiltered] = useState([]);
   const prevCountryName = useRef("");
   const [errorMessage, setErrorMessage] = useState("");
- 
-  // const [storedFavoriteCountries, setStoredFavoriteCountries] = useState([]);
+  const { favoriteCountries } = useContext(FavoriteStateContext);
+  console.log("🚀 ~ file: CountriesList.jsx:17 ~ CountriesList ~ favoriteCountries:", favoriteCountries)
 
   useEffect(() => {
     axios
@@ -27,18 +31,6 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
-    // const storedData = JSON.parse(localStorage.getItem('storedFavoriteCountries')) || [];
-    // setStoredFavoriteCountries(storedData);
-
-    // Listen for changes in local storage
-    // const handleStorageChange = (event) => {
-    //   if (event.key === 'storedFavoriteCountries') {
-    //     const updatedData = JSON.parse(event.newValue) || [];
-    //     setStoredFavoriteCountries(updatedData);
-    //   }
-    // };
-
-    // window.addEventListener('storage', handleStorageChange);
     if (prevCountryName.current !== countryName && countryName) {
       axios
         .get(`https://restcountries.com/v3.1/name/${countryName}`)
@@ -46,13 +38,7 @@ function CountriesList({ selectedRegion, countryName }) {
           const countriesResult = response.data.filter((country) => {
             if (selectedRegion === "No Filter") {
               return true;
-            } 
-            // else if (selectedRegion === "Favorites") {
-            //   return storedFavoriteCountries.some((storedCountry) => {
-            //     return storedCountry.name.common === country.name.common;
-            //   });
-            // }
-            else {
+            } else {
               return country.region === selectedRegion;
             }
           });
@@ -60,8 +46,10 @@ function CountriesList({ selectedRegion, countryName }) {
           if (!ignore) {
             setCountriesFiltered(countriesResult);
             setErrorMessage("");
-            localStorage.setItem("filteredCountries", JSON.stringify(countriesResult));
-
+            localStorage.setItem(
+              "filteredCountries",
+              JSON.stringify(countriesResult)
+            );
           }
         })
         .catch(function (error) {
@@ -72,13 +60,7 @@ function CountriesList({ selectedRegion, countryName }) {
       const countriesResult = listOfCountries.filter((country) => {
         if (selectedRegion === "No Filter") {
           return true;
-        }
-        // else if (selectedRegion === "Favorites") {
-        //   return storedFavoriteCountries.some((storedCountry) => {
-        //     return storedCountry.name.common === country.name.common;
-        //   });
-        // }
-         else {
+        } else {
           return country.region === selectedRegion;
         }
       });
@@ -86,17 +68,17 @@ function CountriesList({ selectedRegion, countryName }) {
       if (!ignore) {
         setCountriesFiltered(countriesResult);
         setErrorMessage("");
-        localStorage.setItem("filteredCountries", JSON.stringify(countriesResult));
-
+        localStorage.setItem(
+          "filteredCountries",
+          JSON.stringify(countriesResult)
+        );
       }
     }
-
+  
     prevCountryName.current = countryName;
 
     return () => {
       ignore = true;
-      // window.removeEventListener('storage', handleStorageChange);
-
     };
   }, [selectedRegion, countryName, listOfCountries]);
 
@@ -120,16 +102,15 @@ function CountriesList({ selectedRegion, countryName }) {
           <h3 className="w-100">{errorMessage || "No countries found"}</h3>
         ) : (
           countriesFiltered.map((country) => {
-            return (
-              <Card
-                key={country.name.common}
-                country={country}
-              />
+            const isFavorite = favoriteCountries.some(
+              (favCountry) => favCountry.name.common === country.name.common
             );
+
+            return <Card key={country.name.common} country={country} isFavorite={isFavorite} />;
           })
         )}
-      </div>
     </div>
+  </div>
   );
 }
 
