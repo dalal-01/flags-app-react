@@ -1,34 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdStar } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useDrag } from "react-dnd";
 
 function Card({ country }) {
-  const [selectedOpacity, setSelectedOpacity] = useState(1);
-  // const dragAndDropFavorite = (event) => {
-  //   setSelectedOpacity(0.5);
-  //   let selectedCountryName = country.name.common;
-  //   let favoriteCountries =
-  //     JSON.parse(localStorage.getItem("favoriteCountries")) || [];
-  //   const index = favoriteCountries.findIndex(
-  //     (favorite) => favorite.name.common === selectedCountryName
-  //   );
-  //   if (index === -1) {
-  //     favoriteCountries.push(country);
-  //   }
-  //   // event.preventDefault();
-  //   const data =  event.dataTransfer.setData("text/plain", JSON.stringify(country));
-   
-  //   console.log("🚀 ~ file: Card.jsx:22 ~ dragAndDropFavorite ~ droppedCountry:", data)
-  // };
-function handelOnDrag(e){
+  const storedFavoriteCountries =
+    JSON.parse(localStorage.getItem("storedFavoriteCountries")) || [];
 
-}
+  const index = storedFavoriteCountries.findIndex(
+    (favorite) => favorite.name.common === country.name.common
+  );
+  let color;
+  if (index == -1) {
+    color = "blue";
+  } else {
+    color = "red";
+  }
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "div",
+    item: { id: country },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
+  const handelDeleteOrAddFavorite = (country) => {
+    if (index == -1) {
+      color = "red";
+      storedFavoriteCountries.push(country);
+      localStorage.setItem(
+        "storedFavoriteCountries",
+        JSON.stringify(storedFavoriteCountries)
+      );
+    } else {
+      color = "gry";
+      storedFavoriteCountries.splice(index, 1);
+      localStorage.setItem(
+        "storedFavoriteCountries",
+        JSON.stringify(storedFavoriteCountries)
+      );
+    }
+  };
   return (
-    <div className="col" style={{ opacity: selectedOpacity }}>
+    <div className="col">
       <div
-        draggable="true"
-        className="card border-0 country"
-        onDragStart={handelOnDrag}
+        ref={drag}
+        className="card country"
+        style={{ border: isDragging ? "5px solid red" : "0px" }}
       >
         <Link to="/country-details" className="card border-0">
           <img
@@ -54,7 +73,11 @@ function handelOnDrag(e){
             capital: <span>{country.capital}</span>
           </p>
         </div>
-        <MdStar className="ms-auto " />
+        <MdStar
+          className="ms-auto "
+          onClick={() => handelDeleteOrAddFavorite(country)}
+          style={{ color: color }}
+        />
       </div>
     </div>
   );

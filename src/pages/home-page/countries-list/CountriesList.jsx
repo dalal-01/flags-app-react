@@ -8,6 +8,8 @@ function CountriesList({ selectedRegion, countryName }) {
   const [countriesFiltered, setCountriesFiltered] = useState([]);
   const prevCountryName = useRef("");
   const [errorMessage, setErrorMessage] = useState("");
+ 
+  const [storedFavoriteCountries, setStoredFavoriteCountries] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,15 +26,31 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
+    const storedData = JSON.parse(localStorage.getItem('storedFavoriteCountries')) || [];
+    setStoredFavoriteCountries(storedData);
+
+    // Listen for changes in local storage
+    const handleStorageChange = (event) => {
+      if (event.key === 'storedFavoriteCountries') {
+        const updatedData = JSON.parse(event.newValue) || [];
+        setStoredFavoriteCountries(updatedData);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
     if (prevCountryName.current !== countryName && countryName) {
-      console.log("l");
       axios
         .get(`https://restcountries.com/v3.1/name/${countryName}`)
         .then(function (response) {
           const countriesResult = response.data.filter((country) => {
             if (selectedRegion === "No Filter") {
               return true;
-            } else {
+            } else if (selectedRegion === "Favorites") {
+              return storedFavoriteCountries.some((storedCountry) => {
+                return storedCountry.name.common === country.name.common;
+              });
+            }
+            else {
               return country.region === selectedRegion;
             }
           });
@@ -49,11 +67,15 @@ function CountriesList({ selectedRegion, countryName }) {
           setErrorMessage(error.response.data.message);
         });
     } else {
-      console.log("kk");
       const countriesResult = listOfCountries.filter((country) => {
         if (selectedRegion === "No Filter") {
           return true;
-        } else {
+        }else if (selectedRegion === "Favorites") {
+          return storedFavoriteCountries.some((storedCountry) => {
+            return storedCountry.name.common === country.name.common;
+          });
+        }
+         else {
           return country.region === selectedRegion;
         }
       });
@@ -70,8 +92,10 @@ function CountriesList({ selectedRegion, countryName }) {
 
     return () => {
       ignore = true;
+      window.removeEventListener('storage', handleStorageChange);
+
     };
-  }, [selectedRegion, countryName, listOfCountries]);
+  }, [selectedRegion, countryName, listOfCountries,storedFavoriteCountries]);
 
   return (
     <div className="col-12 col-md-9 countries-list">
@@ -95,7 +119,7 @@ function CountriesList({ selectedRegion, countryName }) {
           countriesFiltered.map((country) => {
             return (
               <Card
-                key={country.region + country.name.common}
+                key={country.name.common}
                 country={country}
               />
             );

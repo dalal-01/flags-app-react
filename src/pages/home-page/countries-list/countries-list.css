@@ -29,13 +29,13 @@
   font-size: 0.9rem;
   font-weight: 300;
 }
-.country-list svg {
+/* .country-list svg {
   width: 1.9rem;
   height: 1.9rem;
   color: rgb(192, 187, 187);
   padding: 0px 10px 10px 0px;
   display: none;
-}
+} */
 .countries-list::-webkit-scrollbar {
   width: 0.55rem;
 }

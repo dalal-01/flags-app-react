@@ -8,6 +8,8 @@ import AppButton from "../src/components/app-button/AppButton.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 import { IoMoonOutline } from "react-icons/io5";
 import PageNotFound from "./pages/home-page/404-page/PageNotFound.jsx";
+import{DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend"
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -23,6 +25,7 @@ function App() {
   };
   
   return (
+    <DndProvider backend={HTML5Backend}>
     <div>
       <Header>
         <h1 className="m-0">Where in the world?</h1>
@@ -41,6 +44,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    </DndProvider>
   );
 }
 
