@@ -14,7 +14,6 @@ function CountriesList({ selectedRegion, countryName }) {
   const prevCountryName = useRef("");
   const [errorMessage, setErrorMessage] = useState("");
   const { favoriteCountries } = useContext(FavoriteStateContext);
-  console.log("🚀 ~ file: CountriesList.jsx:17 ~ CountriesList ~ favoriteCountries:", favoriteCountries)
 
   useEffect(() => {
     axios
@@ -31,14 +30,19 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
-    if (prevCountryName.current !== countryName && countryName) {
+    if ( countryName) {
       axios
         .get(`https://restcountries.com/v3.1/name/${countryName}`)
         .then(function (response) {
           const countriesResult = response.data.filter((country) => {
             if (selectedRegion === "No Filter") {
               return true;
-            } else {
+            } else if (selectedRegion === "Favorites") {
+              return favoriteCountries.some((favoriteCountry) => {
+                return favoriteCountry.name.common === country.name.common;
+              });
+            }
+            else {
               return country.region === selectedRegion;
             }
           });
@@ -60,7 +64,12 @@ function CountriesList({ selectedRegion, countryName }) {
       const countriesResult = listOfCountries.filter((country) => {
         if (selectedRegion === "No Filter") {
           return true;
-        } else {
+        } else if (selectedRegion === "Favorites") {
+          return favoriteCountries.some((favoriteCountry) => {
+            return favoriteCountry.name.common === country.name.common;
+          });
+        }
+        else {
           return country.region === selectedRegion;
         }
       });
@@ -75,12 +84,11 @@ function CountriesList({ selectedRegion, countryName }) {
       }
     }
   
-    prevCountryName.current = countryName;
 
     return () => {
       ignore = true;
     };
-  }, [selectedRegion, countryName, listOfCountries]);
+  }, [selectedRegion, countryName, listOfCountries,favoriteCountries]);
 
   return (
     <div className="col-12 col-md-9 countries-list">

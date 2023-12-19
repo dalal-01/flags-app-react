@@ -2,22 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { MdStar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDrag } from "react-dnd";
-import { FavoriteStateContext, FavoriteDispatchContext } from '../../../../favorite-context/FavoriteProvider.jsx';
+import {
+  FavoriteDispatchContext,
+} from "../../../../favorite-context/FavoriteProvider.jsx";
 
-function Card({ country,isFavorite}) {
+function Card({ country, isFavorite }) {
   const dispatch = useContext(FavoriteDispatchContext);
 
   let color;
-  if(isFavorite){
-    console.log(country)
-  }
-  
   if (isFavorite) {
-    color = "yellow";
-  } else {
-    color = "black";
+    console.log(country);
   }
-
+  color=isFavorite?"rgb(255, 134, 0)":"rgb(192, 187, 187)";
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "div",
     item: { id: country },
@@ -26,26 +22,25 @@ function Card({ country,isFavorite}) {
     }),
   }));
   const addCountryToFavorite = (country) => {
-    dispatch({ type: 'ADD_COUNTRY', payload: country });
+    dispatch({ type: "ADD_COUNTRY", payload: country });
   };
   const handleDeleteFavorite = (countryToDelete) => {
-    dispatch({ type: 'DELETE_COUNTRY', payload: countryToDelete });
+    dispatch({ type: "DELETE_COUNTRY", payload: countryToDelete });
   };
 
   const handelDeleteOrAddFavorite = (country) => {
     if (isFavorite) {
-      handleDeleteFavorite(country)
+      handleDeleteFavorite(country);
     } else {
-      addCountryToFavorite(country)
+      addCountryToFavorite(country);
     }
-   
   };
   return (
     <div className="col">
       <div
         ref={drag}
         className="card country"
-        style={{ border: isDragging ? "5px solid red" : "0px" }}
+        style={{ opacity: isDragging ? "0.5" : "1" }}
       >
         <Link to="/country-details" className="card border-0">
           <img
