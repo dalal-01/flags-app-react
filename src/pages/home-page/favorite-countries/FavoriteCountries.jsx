@@ -1,11 +1,12 @@
 
 import "./favorite-countries.css"
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { FavoriteStateContext, FavoriteDispatchContext } from '../../../favorite-context/FavoriteProvider.jsx';
 import { TfiClose } from 'react-icons/tfi';
 
 const FavoriteCountries = () => {
+  let [isDragOver,setIsDragOver]=useState(false)
   const {favoriteCountries} = useContext(FavoriteStateContext);
   const dispatch = useContext(FavoriteDispatchContext);
 
@@ -23,15 +24,20 @@ const FavoriteCountries = () => {
   const handleDeleteFavorite = (countryToDelete) => {
     dispatch({ type: 'DELETE_COUNTRY', payload: countryToDelete });
   };
-useEffect(()=>{
 
-},[favoriteCountries])
+
+const handelAddBorderColor=()=>{
+  setIsDragOver(true)
+}
+const handelDeleteBorderColor=()=>{
+  setIsDragOver(false)
+}
 
   return (
     <aside className="favorites col-3 pe-1"   >
-    <div className="card p-3">
+    <div className="card p-3" style={{ border: isDragOver ? "5px solid #27ae60" : "0px" }} >
       <h2 className="fw-bold">Favorites</h2>
-      <div className="favorite-countries" ref={drop} >
+      <div className="favorite-countries" ref={drop} onDragOver={handelAddBorderColor} onDragLeave={handelDeleteBorderColor} onDrop={handelDeleteBorderColor}  >
         {favoriteCountries.length > 0 ? (
           favoriteCountries.map((country) => (
             <div className="d-flex mb-3 align-items-center" key={country.name.common}>

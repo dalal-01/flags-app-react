@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./home.css";
-import AppInput from "../../components/app-input/AppInput.jsx";
+import AppInput from "../../../components/app-input/AppInput.jsx";
 import { IoSearchSharp } from "react-icons/io5";
-import Dropdown from "../../components/dropdown/Dropdown.jsx";
-import FavoriteCountries from "./favorite-countries-section/FavoriteCountries.jsx";
-import CountriesList from "./countries-list/CountriesList.jsx";
-import { FavoriteProvider } from "../../favorite-context/FavoriteProvider.jsx";
+import Dropdown from "../../../components/dropdown/Dropdown.jsx";
+import FavoriteCountries from "../favorite-countries/FavoriteCountries.jsx";
+import CountriesList from "../countries-list/CountriesList.jsx";
+import { FavoriteProvider } from "../../../favorite-context/FavoriteProvider.jsx";
 
 function Home() {
   const storedSelectedRegion = localStorage.getItem('selectedRegion') || "No Filter";

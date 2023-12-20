@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./country-info.css";
-import BorderCountry from "./border-countries/BorderCountries.jsx";
+import BorderCountry from "../border-countries/BorderCountries.jsx";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 function CountryInfo() {
   const { countryName } = useParams();
-  console.log("🚀 ~ file: CountryInfo.jsx:9 ~ CountryInfo ~ countryName:", countryName)
-
-  // let countryName = "palestine";
-
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     axios
-      .get(`https://restcountries.com/v3.1/name/${countryName}`)
+      .get(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
       .then(function (response) {
         let result = response.data;
         setCountrySelectedInfo(result[0]);

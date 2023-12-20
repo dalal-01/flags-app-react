@@ -1,8 +1,8 @@
 import React from "react";
 import "./country-details.css";
-import AppButton from "../../components/app-button/AppButton.jsx";
+import AppButton from "../../../components/app-button/AppButton.jsx";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import CountryInfo from "./country-info/CountryInfo.jsx";
+import CountryInfo from "../country-info/CountryInfo.jsx";
 import { Link } from "react-router-dom";
 
 function CountryDetails() {

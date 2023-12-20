@@ -29,8 +29,14 @@ const reducer = (state, action) => {
   }
 };
 
+const getInitialState = () => {
+  const storedCountries = JSON.parse(localStorage.getItem('storedFavoriteCountries')) || [];
+  return {
+    favoriteCountries: storedCountries,
+  };
+};
 export const FavoriteProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState,getInitialState);
 
   useEffect(() => {
     localStorage.setItem('storedFavoriteCountries', JSON.stringify(state.favoriteCountries));

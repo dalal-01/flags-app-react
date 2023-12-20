@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./countries-list.css";
+import { FavoriteStateContext } from "../../../favorite-context/FavoriteProvider.jsx";
+import Card from "../card/Card.jsx";
 import {
-  FavoriteStateContext,
-  FavoriteDispatchContext,
-} from "../../../favorite-context/FavoriteProvider.jsx";
-
-import Card from "./card/Card.jsx";
+  fetchAllCountries,
+  fetchCountriesByName,
+} from "../../../countries-apis/FetchAllCountries.js";
 import axios from "axios";
 
 function CountriesList({ selectedRegion, countryName }) {
-  console.log("🚀 ~ file: CountriesList.jsx:12 ~ CountriesList ~ countryName:", countryName)
   const [listOfCountries, setListOfCountries] = useState([]);
   const [countriesFiltered, setCountriesFiltered] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const { favoriteCountries } = useContext(FavoriteStateContext);
-
+  const allCountriesURL = "all";
+  const countriesByNameURL = `name/${countryName}`;
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -73,7 +73,6 @@ function CountriesList({ selectedRegion, countryName }) {
           return country.region === selectedRegion;
         }
       });
-
       if (!ignore) {
         setCountriesFiltered(countriesResult);
         setErrorMessage("");
@@ -114,11 +113,17 @@ function CountriesList({ selectedRegion, countryName }) {
               (favCountry) => favCountry.name.common === country.name.common
             );
 
-            return <Card key={country.name.common} country={country} isFavorite={isFavorite} />;
+            return (
+              <Card
+                key={country.name.common}
+                country={country}
+                isFavorite={isFavorite}
+              />
+            );
           })
         )}
+      </div>
     </div>
-  </div>
   );
 }
 

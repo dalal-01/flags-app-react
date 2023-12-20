@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { MdStar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDrag } from "react-dnd";
 import {
   FavoriteDispatchContext,
-} from "../../../../favorite-context/FavoriteProvider.jsx";
+} from "../../../favorite-context/FavoriteProvider.jsx";
 
 function Card({ country, isFavorite }) {
   const dispatch = useContext(FavoriteDispatchContext);
 
   let color;
-  if (isFavorite) {
-    console.log(country);
-  }
+ 
   color=isFavorite?"rgb(255, 134, 0)":"rgb(192, 187, 187)";
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "div",
