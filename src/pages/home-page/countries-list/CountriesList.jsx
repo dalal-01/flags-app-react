@@ -9,9 +9,9 @@ import Card from "./card/Card.jsx";
 import axios from "axios";
 
 function CountriesList({ selectedRegion, countryName }) {
+  console.log("🚀 ~ file: CountriesList.jsx:12 ~ CountriesList ~ countryName:", countryName)
   const [listOfCountries, setListOfCountries] = useState([]);
   const [countriesFiltered, setCountriesFiltered] = useState([]);
-  const prevCountryName = useRef("");
   const [errorMessage, setErrorMessage] = useState("");
   const { favoriteCountries } = useContext(FavoriteStateContext);
 

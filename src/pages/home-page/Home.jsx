@@ -9,8 +9,9 @@ import { FavoriteProvider } from "../../favorite-context/FavoriteProvider.jsx";
 
 function Home() {
   const storedSelectedRegion = localStorage.getItem('selectedRegion') || "No Filter";
+  const storedSelectedName = localStorage.getItem('selectedName') || "";
 
-  const [countryName, setCountryName] = useState("");
+  const [countryName, setCountryName] = useState(storedSelectedName);
   const [selectedRegion, setSelectedRegion] = useState(storedSelectedRegion);
 
 
@@ -23,14 +24,10 @@ function Home() {
     "Oceania",
     "Favorites",
   ];
-  
-  // useEffect(() => {
-  //   localStorage.setItem("countryName", countryName);
-  // }, [countryName]);
-
   useEffect(() => {
     localStorage.setItem("selectedRegion", selectedRegion);
-  }, [selectedRegion]);
+    localStorage.setItem("selectedName", countryName);
+  }, [selectedRegion,countryName]);
 
   return (
     <>

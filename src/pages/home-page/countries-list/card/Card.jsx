@@ -42,7 +42,7 @@ function Card({ country, isFavorite }) {
         className="card country"
         style={{ opacity: isDragging ? "0.5" : "1" }}
       >
-        <Link to="/country-details" className="card border-0">
+        <Link  to={`/country-details/${country.name.common}`} className="card border-0">
           <img
             src={country.flags.svg}
             alt={country.flags.alt}

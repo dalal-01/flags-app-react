@@ -6,6 +6,7 @@ import CountryInfo from "./country-info/CountryInfo.jsx";
 import { Link } from "react-router-dom";
 
 function CountryDetails() {
+
   return (
     <>
       <main className="px-4 px-md-5">

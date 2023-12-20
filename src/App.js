@@ -11,17 +11,25 @@ import PageNotFound from "./pages/home-page/404-page/PageNotFound.jsx";
 import{DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend"
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const storedDarkMode = localStorage.getItem('darkModeStatus') || false;
+
+  const [darkMode, setDarkMode] = useState(storedDarkMode);
+
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark");
     } else {
       document.body.classList.remove("dark");
     }
+    localStorage.setItem("darkModeStatus", darkMode);
+
   }, [darkMode]);
+
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+    localStorage.setItem("darkModeStatus", darkMode);
+
   };
   
   return (
@@ -39,7 +47,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/country-details" element={<CountryDetails />} />
+          <Route path="/country-details/:countryName" element={<CountryDetails />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

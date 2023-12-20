@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./country-info.css";
 import BorderCountry from "./border-countries/BorderCountries.jsx";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 function CountryInfo() {
-  let countryName = "palestine";
+  const { countryName } = useParams();
+  console.log("🚀 ~ file: CountryInfo.jsx:9 ~ CountryInfo ~ countryName:", countryName)
+
+  // let countryName = "palestine";
 
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
