@@ -11,9 +11,14 @@ import PageNotFound from "./pages/404-page/PageNotFound.jsx";
 import{DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend"
 function App() {
-  const storedDarkMode = localStorage.getItem('darkModeStatus') || false;
+  const storedDarkMode = localStorage.getItem('darkModeStatus') === 'true';;
 
   const [darkMode, setDarkMode] = useState(storedDarkMode);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    localStorage.setItem("darkModeStatus", darkMode);
+  };
 
   useEffect(() => {
     if (darkMode) {
@@ -26,11 +31,7 @@ function App() {
   }, [darkMode]);
 
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    localStorage.setItem("darkModeStatus", darkMode);
-
-  };
+ 
   
   return (
     <DndProvider backend={HTML5Backend}>

@@ -13,14 +13,31 @@ function CountriesList({ selectedRegion, countryName }) {
   const [countriesFiltered, setCountriesFiltered] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const { favoriteCountries } = useContext(FavoriteStateContext);
+  const delay = 100;
+  let timeoutId = null;
   const allCountriesURL = "all";
   const countriesByNameURL = `name/${countryName}`;
+
+  const filterFunction = (countries) => {
+    const countriesResult = countries.filter((country) => {
+      if (selectedRegion === "No Filter") {
+        return true;
+      } else if (selectedRegion === "Favorites") {
+        return favoriteCountries.some((favoriteCountry) => {
+          return favoriteCountry.name.common === country.name.common;
+        });
+      } else {
+        return country.region === selectedRegion;
+      }
+    });
+    return countriesResult;
+  };
+
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
       .then(function (response) {
         setListOfCountries(response.data);
-        setCountriesFiltered(response.data);
       })
       .catch(function (error) {
         setErrorMessage("Error fetching countries");
@@ -30,64 +47,38 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
-    if ( countryName) {
-      axios
-        .get(`https://restcountries.com/v3.1/name/${countryName}`)
-        .then(function (response) {
-          const countriesResult = response.data.filter((country) => {
-            if (selectedRegion === "No Filter") {
-              return true;
-            } else if (selectedRegion === "Favorites") {
-              return favoriteCountries.some((favoriteCountry) => {
-                return favoriteCountry.name.common === country.name.common;
-              });
-            }
-            else {
-              return country.region === selectedRegion;
-            }
-          });
+    if (timeoutId) clearTimeout(timeoutId);
 
-          if (!ignore) {
-            setCountriesFiltered(countriesResult);
-            setErrorMessage("");
-            localStorage.setItem(
-              "filteredCountries",
-              JSON.stringify(countriesResult)
-            );
-          }
-        })
-        .catch(function (error) {
-          console.log(error.response.data.message);
-          setErrorMessage(error.response.data.message);
-        });
-    } else {
-      const countriesResult = listOfCountries.filter((country) => {
-        if (selectedRegion === "No Filter") {
-          return true;
-        } else if (selectedRegion === "Favorites") {
-          return favoriteCountries.some((favoriteCountry) => {
-            return favoriteCountry.name.common === country.name.common;
+    timeoutId = setTimeout(() => {
+      if (countryName.trim() === "") {
+        setCountriesFiltered(listOfCountries);
+
+        const countriesResult = filterFunction(listOfCountries);
+        if (!ignore) {
+          setCountriesFiltered(countriesResult);
+          setErrorMessage("");
+        }
+      } else {
+        axios
+          .get(`https://restcountries.com/v3.1/name/${countryName}`)
+          .then(function (response) {
+            const countriesResult = filterFunction(response.data);
+            if (!ignore) {
+              setCountriesFiltered(countriesResult);
+              setErrorMessage("");
+            }
+          })
+          .catch(function (error) {
+            console.log(error.response.data.message);
+            setErrorMessage(error.response.data.message);
           });
-        }
-        else {
-          return country.region === selectedRegion;
-        }
-      });
-      if (!ignore) {
-        setCountriesFiltered(countriesResult);
-        setErrorMessage("");
-        localStorage.setItem(
-          "filteredCountries",
-          JSON.stringify(countriesResult)
-        );
       }
-    }
-  
-
+    }, delay);
     return () => {
       ignore = true;
+      clearTimeout(timeoutId);
     };
-  }, [selectedRegion, countryName, listOfCountries,favoriteCountries]);
+  }, [selectedRegion, countryName, listOfCountries, favoriteCountries]);
 
   return (
     <div className="col-12 col-md-9 countries-list">
