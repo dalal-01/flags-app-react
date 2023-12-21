@@ -5,8 +5,7 @@ import Card from "../card/Card.jsx";
 import {
   fetchAllCountries,
   fetchCountriesByName,
-} from "../../../countries-apis/FetchAllCountries.js";
-import axios from "axios";
+} from "../../../countries-apis/FetchCountries.js";
 
 function CountriesList({ selectedRegion, countryName }) {
   const [listOfCountries, setListOfCountries] = useState([]);
@@ -34,14 +33,12 @@ function CountriesList({ selectedRegion, countryName }) {
   };
 
   useEffect(() => {
-    axios
-      .get("https://restcountries.com/v3.1/all")
+    fetchAllCountries(allCountriesURL)
       .then(function (response) {
         setListOfCountries(response.data);
       })
       .catch(function (error) {
         setErrorMessage("Error fetching countries");
-        console.log(error);
       });
   }, []);
 
@@ -52,15 +49,13 @@ function CountriesList({ selectedRegion, countryName }) {
     timeoutId = setTimeout(() => {
       if (countryName.trim() === "") {
         setCountriesFiltered(listOfCountries);
-
         const countriesResult = filterFunction(listOfCountries);
         if (!ignore) {
           setCountriesFiltered(countriesResult);
           setErrorMessage("");
         }
       } else {
-        axios
-          .get(`https://restcountries.com/v3.1/name/${countryName}`)
+        fetchCountriesByName(countriesByNameURL)
           .then(function (response) {
             const countriesResult = filterFunction(response.data);
             if (!ignore) {
@@ -69,7 +64,6 @@ function CountriesList({ selectedRegion, countryName }) {
             }
           })
           .catch(function (error) {
-            console.log(error.response.data.message);
             setErrorMessage(error.response.data.message);
           });
       }
