@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import "./countries-list.css";
 import { FavoriteStateContext } from "../../../favorite-context/FavoriteProvider.jsx";
 import Card from "../card/Card.jsx";
@@ -13,7 +13,7 @@ function CountriesList({ selectedRegion, countryName }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { favoriteCountries } = useContext(FavoriteStateContext);
   const delay = 100;
-  let timeoutId = null;
+  const timeoutIdRef = useRef(null); 
   const allCountriesURL = "all";
   const countriesByNameURL = `name/${countryName}`;
 
@@ -44,9 +44,9 @@ function CountriesList({ selectedRegion, countryName }) {
 
   useEffect(() => {
     let ignore = false;
-    if (timeoutId) clearTimeout(timeoutId);
+    if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
 
-    timeoutId = setTimeout(() => {
+    timeoutIdRef.current = setTimeout(() => {
       if (countryName.trim() === "") {
         setCountriesFiltered(listOfCountries);
         const countriesResult = filterFunction(listOfCountries);
@@ -70,7 +70,7 @@ function CountriesList({ selectedRegion, countryName }) {
     }, delay);
     return () => {
       ignore = true;
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutIdRef.current);
     };
   }, [selectedRegion, countryName, listOfCountries, favoriteCountries]);
 
