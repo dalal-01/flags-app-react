@@ -10,14 +10,17 @@ import { IoMoonOutline } from "react-icons/io5";
 import PageNotFound from "./pages/404-page/PageNotFound.jsx";
 import{DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend"
+import { getLocalStorageItem,setLocalStorageItem } from "./storage/LocalStorageUtils.js";
 function App() {
-  const storedDarkMode = localStorage.getItem('darkModeStatus') === 'true';;
+  const darkModeStatusKey = 'darkModeStatus';
+
+  const storedDarkMode = getLocalStorageItem(darkModeStatusKey) === 'true';
 
   const [darkMode, setDarkMode] = useState(storedDarkMode);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem("darkModeStatus", darkMode);
+    setLocalStorageItem(darkModeStatusKey, darkMode);
   };
 
   useEffect(() => {
@@ -26,7 +29,7 @@ function App() {
     } else {
       document.body.classList.remove("dark");
     }
-    localStorage.setItem("darkModeStatus", darkMode);
+    setLocalStorageItem(darkModeStatusKey, darkMode);
 
   }, [darkMode]);
 

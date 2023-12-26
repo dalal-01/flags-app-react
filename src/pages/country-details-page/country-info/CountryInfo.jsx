@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./country-info.css";
 import BorderCountry from "../border-countries/BorderCountries.jsx";
 import { useParams } from "react-router-dom";
-import { fetchCountriesByCommonName } from "../../../countries-apis/FetchCountries.js";
+import { fetchCountriesByCommonName } from "../../../apis/FetchCountries.js";
 
 function CountryInfo() {
   const { countryName } = useParams();

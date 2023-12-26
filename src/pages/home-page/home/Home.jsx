@@ -6,29 +6,25 @@ import Dropdown from "../../../components/dropdown/Dropdown.jsx";
 import FavoriteCountries from "../favorite-countries/FavoriteCountries.jsx";
 import CountriesList from "../countries-list/CountriesList.jsx";
 import { FavoriteProvider } from "../../../favorite-context/FavoriteProvider.jsx";
-
+import { regions } from "../../../data/array-of-regions/ArrayOfRegions.js";
+import { getLocalStorageItem,setLocalStorageItem } from "../../../storage/LocalStorageUtils.js";
 function Home() {
-  const storedSelectedRegion = localStorage.getItem('selectedRegion') || "No Filter";
-  const storedSelectedName = localStorage.getItem('selectedName') || "";
+  const selectedRegionKey = 'selectedRegion';
+  const selectedNameKey = 'selectedName';
+
+  const storedSelectedRegion = getLocalStorageItem(selectedRegionKey, 'No Filter');
+  const storedSelectedName = getLocalStorageItem(selectedNameKey, '');
 
   const [countryName, setCountryName] = useState(storedSelectedName);
   const [selectedRegion, setSelectedRegion] = useState(storedSelectedRegion);
 
 
-  const options = [
-    "No Filter",
-    "Africa",
-    "Americas",
-    "Asia",
-    "Europe",
-    "Oceania",
-    "Favorites",
-  ];
+  const options = regions
   useEffect(() => {
-    localStorage.setItem("selectedRegion", selectedRegion);
-    localStorage.setItem("selectedName", countryName);
+    setLocalStorageItem(selectedRegionKey, selectedRegion);
+    setLocalStorageItem(selectedNameKey, countryName);
   }, [selectedRegion,countryName]);
-
+ 
   return (
     <>
       <section className="filter-section px-4 px-md-5 py-4 py-md-5 d-flex justify-content-between flex-wrap gap-5">
