@@ -1,11 +1,12 @@
-const Debouncing=(func, delay)=> {
-    let timerId;
-    return function (...args) {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  }
+const Debouncing = (func, delay) => {
+  let timeoutId;
 
-export default Debouncing
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+};
+
+export default Debouncing;

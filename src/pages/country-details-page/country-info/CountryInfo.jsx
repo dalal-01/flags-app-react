@@ -8,11 +8,10 @@ function CountryInfo() {
   const { countryName } = useParams();
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-  const countriesByCommonNameURL = `name/${countryName}?fullText=true`;
 
 
   useEffect(() => {
-    fetchCountriesByCommonName(countriesByCommonNameURL)
+    fetchCountriesByCommonName(countryName)
       .then(function (response) {
         let result = response.data;
         setCountrySelectedInfo(result[0]);
