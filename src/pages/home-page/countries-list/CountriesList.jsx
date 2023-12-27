@@ -22,8 +22,6 @@ function CountriesList({ selectedRegion, countryName }) {
   const { favoriteCountries } = useContext(FavoriteStateContext);
   const delay = 500;
 
-  
-
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -35,32 +33,31 @@ function CountriesList({ selectedRegion, countryName }) {
       }
     };
     fetchData();
-    setLoading(false)
-    
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
     if (countryName.trim() !== "") {
       const fetchData = async (countryName) => {
-        try {
+        
+          console.log(countryName);
           const response = await fetchCountriesByName(countryName);
-         setCountriesFilteredByName(response);
-         console.log(countriesFilteredByName,"l");
-        } catch (error) {
+          console.log(response);
+          if(response.length !=0){
+          setCountriesFilteredByName(response);
+          }
+       else{
           setCountriesFilteredByName([]);
-          setErrorMessage(
-            error.response
-              ? error.response.data.message
-              : "Error fetching countries"
-          );
-        }
+          setErrorMessage("Error fetching countries");
+       }
       };
-      const debouncedFetchData = Debouncing(
-        () => fetchData(countryName),
-        delay
-      );
-      debouncedFetchData();
+      fetchData(countryName);
+      // const debouncedFetchData = Debouncing(
+      //   () => fetchData(countryName),
+      //   delay
+      // );
+      // debouncedFetchData();
     }
   }, [countryName]);
 
@@ -70,7 +67,13 @@ function CountriesList({ selectedRegion, countryName }) {
       delay
     );
     debouncedUpdateFilteredCountries();
-  }, [selectedRegion, countryName, listOfCountries, favoriteCountries]);
+  }, [
+    selectedRegion,
+    countryName,
+    listOfCountries,
+    favoriteCountries,
+    countriesFilteredByName,
+  ]);
 
   const filterByRegion = (countries, selectedRegion) => {
     if (selectedRegion === NO_FILTER) {
@@ -98,11 +101,9 @@ function CountriesList({ selectedRegion, countryName }) {
     } else {
       countriesResult = filterByRegion(countriesFilteredByName, selectedRegion);
       setFilteredCountryList(countriesResult);
-    setLoading(false);
+      setLoading(false);
       setErrorMessage("");
     }
-    
-
   };
   return (
     <div className="col-12 col-md-9 countries-list">
@@ -119,9 +120,9 @@ function CountriesList({ selectedRegion, countryName }) {
             </div>
           </section>
         ) : errorMessage ? (
-          <h3 className="w-100">{errorMessage}</h3>
+          <h3 className="w-100">{errorMessage }</h3>
         ) : (
-         filteredCountryList.map((country) => {
+          filteredCountryList.map((country) => {
             const isFavorite = favoriteCountries.some(
               (favCountry) => favCountry.name.common === country.name.common
             );

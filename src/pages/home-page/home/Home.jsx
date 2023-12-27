@@ -10,20 +10,16 @@ import { regions } from "../../../data/array-of-regions/ArrayOfRegions.js";
 import { getLocalStorageItem,setLocalStorageItem } from "../../../storage/LocalStorageUtils.js";
 function Home() {
   const selectedRegionKey = 'selectedRegion';
-  const selectedNameKey = 'selectedName';
-
   const storedSelectedRegion = getLocalStorageItem(selectedRegionKey, 'No Filter');
-  const storedSelectedName = getLocalStorageItem(selectedNameKey, '');
-
-  const [countryName, setCountryName] = useState(storedSelectedName);
+  
+  const [countryName, setCountryName] = useState("");
   const [selectedRegion, setSelectedRegion] = useState(storedSelectedRegion);
 
 
   const options = regions
   useEffect(() => {
     setLocalStorageItem(selectedRegionKey, selectedRegion);
-    setLocalStorageItem(selectedNameKey, countryName);
-  }, [selectedRegion,countryName]);
+  }, [selectedRegion]);
  
   return (
     <>
