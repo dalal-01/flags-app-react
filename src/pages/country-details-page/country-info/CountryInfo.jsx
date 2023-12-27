@@ -9,18 +9,18 @@ function CountryInfo() {
   const [countrySelectedInfo, setCountrySelectedInfo] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
-
   useEffect(() => {
-    fetchCountriesByCommonName(countryName)
-      .then(function (response) {
-        let result = response.data;
-        setCountrySelectedInfo(result[0]);
+    const fetchData = async () => {
+      try {
+        const response = await fetchCountriesByCommonName(countryName);
+        setCountrySelectedInfo(response[0]);
         setErrorMessage("");
-      })
-      .catch(function (error) {
+      } catch (error) {
         setErrorMessage("Error fetching country");
-        console.log(error);
-      });
+      }
+    };
+
+    fetchData();
   }, [countryName]);
 
   return (

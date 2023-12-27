@@ -23,49 +23,78 @@ function CountriesList({ selectedRegion, countryName }) {
   const delay = 500;
 
   useEffect(() => {
-    setLoading(true);
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await fetchAllCountries();
         setListOfCountries(response);
+        setLoading(false);
       } catch (error) {
         setErrorMessage("Error fetching countries");
+        setLoading(false);
       }
     };
+
     fetchData();
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
     if (countryName.trim() !== "") {
       const fetchData = async (countryName) => {
-        
-          console.log(countryName);
+        try {
           const response = await fetchCountriesByName(countryName);
-          console.log(response);
-          if(response.length !=0){
           setCountriesFilteredByName(response);
-          }
-       else{
+          setLoading(false);
+          setErrorMessage("");
+        } catch (error) {
           setCountriesFilteredByName([]);
           setErrorMessage("Error fetching countries");
-       }
+          setLoading(false);
+        }
       };
-      fetchData(countryName);
-      // const debouncedFetchData = Debouncing(
-      //   () => fetchData(countryName),
-      //   delay
-      // );
-      // debouncedFetchData();
+      const debounceTimeout = setTimeout(() => {
+        fetchData(countryName);
+      }, 500);
+
+      return () => {
+        clearTimeout(debounceTimeout);
+      };
     }
   }, [countryName]);
 
+  const updateFilteredCountries = () => {
+    let countriesResult = [];
+    let currentErrorMessage = "";
+    let isLoading = false;
+    if (countryName.trim() === "") {
+      countriesResult = filterByRegion(listOfCountries, selectedRegion);
+    } else {
+      if (countriesFilteredByName && countriesFilteredByName.length > 0) {
+        countriesResult = filterByRegion(
+          countriesFilteredByName,
+          selectedRegion
+        );
+      } else {
+        countriesResult = [];
+        currentErrorMessage = "No countries found";
+      }
+    }
+    if (countriesResult.length === 0) {
+      currentErrorMessage = "No countries found";
+    }
+    setFilteredCountryList(countriesResult);
+    setLoading(isLoading);
+    setErrorMessage(currentErrorMessage);
+  };
+
+  const debouncedUpdateFilteredCountries = Debouncing(
+    updateFilteredCountries,
+    delay
+  );
+
   useEffect(() => {
-    const debouncedUpdateFilteredCountries = Debouncing(
-      updateFilteredCountries,
-      delay
-    );
+    setLoading(true);
     debouncedUpdateFilteredCountries();
   }, [
     selectedRegion,
@@ -91,20 +120,6 @@ function CountriesList({ selectedRegion, countryName }) {
     return countriesResult;
   };
 
-  const updateFilteredCountries = () => {
-    let countriesResult = [];
-    if (countryName.trim() === "") {
-      countriesResult = filterByRegion(listOfCountries, selectedRegion);
-      setFilteredCountryList(countriesResult);
-      setLoading(false);
-      setErrorMessage("");
-    } else {
-      countriesResult = filterByRegion(countriesFilteredByName, selectedRegion);
-      setFilteredCountryList(countriesResult);
-      setLoading(false);
-      setErrorMessage("");
-    }
-  };
   return (
     <div className="col-12 col-md-9 countries-list">
       <div
@@ -120,7 +135,7 @@ function CountriesList({ selectedRegion, countryName }) {
             </div>
           </section>
         ) : errorMessage ? (
-          <h3 className="w-100">{errorMessage }</h3>
+          <h3 className="w-100">{errorMessage}</h3>
         ) : (
           filteredCountryList.map((country) => {
             const isFavorite = favoriteCountries.some(
