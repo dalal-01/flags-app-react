@@ -1,5 +1,5 @@
 import React from "react";
-import "./headerr.css";
+import "./header.css";
 function Header({ children }) {
   return (
     <header className="px-4 px-md-5 py-2 sticky-top">
