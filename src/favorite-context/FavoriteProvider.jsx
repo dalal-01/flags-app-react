@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { getLocalStorageItem, setLocalStorageItem } from '../storage/LocalStorageUtils.js';
 
-export const FavoriteStateContext = createContext();
-export const FavoriteDispatchContext = createContext();
+export const FavoriteStateContext = createContext({});
+export const FavoriteDispatchContext = createContext(() => {});
+
 
 const storedFavoriteCountriesKey = 'storedFavoriteCountries';
   const storedFavoriteCountries = getLocalStorageItem(storedFavoriteCountriesKey, []);
