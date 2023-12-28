@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/flags-app-react/static/css/main.8014edda.css",
-    "main.js": "/flags-app-react/static/js/main.bd16b9ce.js",
+    "main.js": "/flags-app-react/static/js/main.f1f44ec5.js",
     "static/js/787.88dfdeb5.chunk.js": "/flags-app-react/static/js/787.88dfdeb5.chunk.js",
     "static/media/404.gif": "/flags-app-react/static/media/404.fe43fc94b3fa9de89ca7.gif",
     "static/media/NunitoSans_7pt_Condensed-ExtraBold.ttf": "/flags-app-react/static/media/NunitoSans_7pt_Condensed-ExtraBold.c81430c41dd3360d6980.ttf",
@@ -10,11 +10,11 @@
     "static/media/NunitoSans_7pt_Condensed-Medium.ttf": "/flags-app-react/static/media/NunitoSans_7pt_Condensed-Medium.801455faf51701f00654.ttf",
     "index.html": "/flags-app-react/index.html",
     "main.8014edda.css.map": "/flags-app-react/static/css/main.8014edda.css.map",
-    "main.bd16b9ce.js.map": "/flags-app-react/static/js/main.bd16b9ce.js.map",
+    "main.f1f44ec5.js.map": "/flags-app-react/static/js/main.f1f44ec5.js.map",
     "787.88dfdeb5.chunk.js.map": "/flags-app-react/static/js/787.88dfdeb5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8014edda.css",
-    "static/js/main.bd16b9ce.js"
+    "static/js/main.f1f44ec5.js"
   ]
 }
